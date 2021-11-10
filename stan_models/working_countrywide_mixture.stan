@@ -41,13 +41,13 @@ transformed parameters {
   
   for (i in 1:N) {	
     // phi is the fraction of people of race r, d who are guilty (ie, carrying contraband)
-    phi[i]    <- inv_logit(phi_r[r[i]] + phi_d[d[i]] + phi_state[state[i]]);
+    phi[i]    = inv_logit(phi_r[r[i]] + phi_d[d[i]] + phi_state[state[i]]);
     
     // delta is the center of the guilty distribution. 
-    delta[i] <- exp(delta_r[r[i]] + delta_d[d[i]] + delta_state[state[i]]);
+    delta[i] = exp(delta_r[r[i]] + delta_d[d[i]] + delta_state[state[i]]);
     
-    successful_search_rate <- phi[i] * (1 - normal_cdf(t_i[i], delta[i], 1));
-    unsuccessful_search_rate <- (1 - phi[i]) * (1 - normal_cdf(t_i[i], 0, 1)); 
+    successful_search_rate = phi[i] * (1 - normal_cdf(t_i[i], delta[i], 1));
+    unsuccessful_search_rate = (1 - phi[i]) * (1 - normal_cdf(t_i[i], 0, 1)); 
     search_rate[i] = (successful_search_rate + unsuccessful_search_rate);
     hit_rate[i] = successful_search_rate / search_rate[i];
    }

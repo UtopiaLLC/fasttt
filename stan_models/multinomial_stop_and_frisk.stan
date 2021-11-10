@@ -39,20 +39,20 @@ transformed parameters {
   real guilty_p_above_threshold;
   vector<lower=0, upper=1>[N] theta;
 
-  phi_d[1]      <- 0;
-  phi_d[2:D]    <- phi_d_raw;
-  delta_d[1]   <- 0;
-  delta_d[2:D] <- delta_d_raw;
+  phi_d[1]      = 0;
+  phi_d[2:D]    = phi_d_raw;
+  delta_d[1]   = 0;
+  delta_d[2:D] = delta_d_raw;
   
   for (i in 1:N) {	
     // phi is the fraction of people of race r, d who are guilty (ie, carrying contraband)
-    phi[i]    <- inv_logit(phi_r[r[i]] + phi_d[d[i]]);
+    phi[i]    = inv_logit(phi_r[r[i]] + phi_d[d[i]]);
     
     // mu is the center of the guilty distribution. 
-    delta[i] <- exp(delta_r[r[i]] + delta_d[d[i]]);
+    delta[i] = exp(delta_r[r[i]] + delta_d[d[i]]);
     
-    guilty_p_above_threshold <- phi[i] * (1 - normal_cdf(t_i[i], delta[i], 1));
-    innocent_p_above_threshold <- (1 - phi[i]) * (1 - normal_cdf(t_i[i], 0, 1));
+    guilty_p_above_threshold = phi[i] * (1 - normal_cdf(t_i[i], delta[i], 1));
+    innocent_p_above_threshold = (1 - phi[i]) * (1 - normal_cdf(t_i[i], 0, 1));
     search_rate[i] = (guilty_p_above_threshold + innocent_p_above_threshold);
     hit_rate[i] = guilty_p_above_threshold / (guilty_p_above_threshold + innocent_p_above_threshold);
     theta[i] = base_population_proportions[i] * search_rate[i];

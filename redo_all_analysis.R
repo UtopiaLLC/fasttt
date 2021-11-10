@@ -6,13 +6,13 @@ source('run_mixture_mcmc.R')
 remake_data = FALSE
 rerun_all_mixture_frisk_models = FALSE
 rerun_all_old_frisk_models = FALSE
-rerun_all_mixture_stop_models = FALSE
+rerun_all_mixture_stop_models = TRUE
 rerun_all_old_stop_models = FALSE
 rerun_placebo_models = FALSE
 rerun_substratification_models = FALSE
 rerun_threshold_heterogeneity = FALSE
 remake_plots_and_tables = FALSE
-
+ 
 if(remake_data){
   # this remakes all stop and frisk dataframes for the main analyses. See data_processing.R. 
   # Does not remake dataframes for robustness checks (placebo checks etc). 

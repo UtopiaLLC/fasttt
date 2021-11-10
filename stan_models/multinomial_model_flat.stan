@@ -57,31 +57,31 @@ transformed parameters {
   vector<lower=0, upper=1>[N] t_i;
   vector<lower=0, upper=1>[N] theta;
   
-  phi_d[1]      <- 0;
-  phi_d[2:D]    <- phi_d_raw;
-  lambda_d[1]   <- 0;
-  lambda_d[2:D] <- lambda_d_raw;
+  phi_d[1]      = 0;
+  phi_d[2:D]    = phi_d_raw;
+  lambda_d[1]   = 0;
+  lambda_d[2:D] = lambda_d_raw;
   
   for (i in 1:N) {	
     real a;
     real b;
     
     // implies t_i[i] ~ logit-normal(t_r[r[i]], sigma_t[r[i]])
-    t_i[i] <- inv_logit(t_r[r[i]] + t_i_raw[i] * sigma_t[r[i]]);
+    t_i[i] = inv_logit(t_r[r[i]] + t_i_raw[i] * sigma_t[r[i]]);
     
     // signal distribution parameters	
-    phi[i]    <- inv_logit(phi_r[r[i]] + phi_d[d[i]]);
-    lambda[i] <- exp(lambda_r[r[i]] + lambda_d[d[i]]);
+    phi[i]    = inv_logit(phi_r[r[i]] + phi_d[d[i]]);
+    lambda[i] = exp(lambda_r[r[i]] + lambda_d[d[i]]);
     
     // transformed signal distribution parameters
-    a <- lambda[i] * phi[i];
-    b <- lambda[i] * (1 - phi[i]);
+    a = lambda[i] * phi[i];
+    b = lambda[i] * (1 - phi[i]);
     
     // implied search and hit rates
-    search_rate[i] <- beta_ccdf(t_i[i], a, b);
-    hit_rate[i]    <- beta_conditional_mean(t_i[i], a, b);
+    search_rate[i] = beta_ccdf(t_i[i], a, b);
+    hit_rate[i]    = beta_conditional_mean(t_i[i], a, b);
     
-    theta[i] <- base_population_proportions[i] * search_rate[i];
+    theta[i] = base_population_proportions[i] * search_rate[i];
   }
    
 }

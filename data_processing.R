@@ -75,12 +75,12 @@ make_stop_and_frisk_dataframe = function(analysis_to_conduct,
       message(sprintf("Perturbing the white population by %2.3f", white_population_counterfactual_perturbation))
     }
     census_pop_by_race_and_precinct = read_csv(paste0(base_code_dir, 'NYC_Blocks_2010CensusData_Plus_Precincts.csv')) %>%
-      group_by(precinct) %>% summarise(Hispanic = sum(P0020002), 
+      group_by(precinct...163) %>% summarise(Hispanic = sum(P0020002), 
                                        White = sum(P0020005), 
                                        Black = sum(P0020006)) %>%
       mutate(White = White * white_population_counterfactual_perturbation) %>%
       gather(key = 'driver_race', value = 'race_base_pop', Hispanic:Black) %>%
-      rename(location_variable = precinct)
+      rename(location_variable = precinct...163)
     # compute summary stats for stops. 
     stops = stops %>% 
       mutate(stopped_because_suspected_weapon = (suspected.crime == 'cpw') & (!is.na(suspected.crime))) %>%
